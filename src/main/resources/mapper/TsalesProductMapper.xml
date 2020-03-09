@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sale.dao.TsalesProductMapper">
+  <resultMap id="BaseResultMap" type="com.example.sale.model.TsalesProduct">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.example.sale.model.TsalesProduct">
+    insert into t_sales_product (id, product, size, 
+      number, price)
+    values (#{id,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, 
+      #{number,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.example.sale.model.TsalesProduct">
+    insert into t_sales_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="product != null">
+        product,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * FROM t_sales_product WHERE id = #{id, jdbcType=VARCHAR}
+  </select>
+</mapper>

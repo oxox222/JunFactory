@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sale.dao.TsalesMapper">
+  <resultMap id="BaseResultMap" type="com.example.sale.model.Tsales">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="party" jdbcType="VARCHAR" property="party" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="odd" jdbcType="VARCHAR" property="odd" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.example.sale.model.Tsales">
+    insert into t_sales (id, party, consignee, 
+      contact, phone, address, time, create_time, odd)
+    values (#{id,jdbcType=VARCHAR}, #{party,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, 
+      #{contact,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{time,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{odd,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.example.sale.model.Tsales">
+    insert into t_sales
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="party != null">
+        party,
+      </if>
+      <if test="consignee != null">
+        consignee,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="odd != null">
+        odd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="party != null">
+        #{party,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="create_time != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="odd != null">
+        #{odd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from t_sales
+  </select>
+  
+  <select id="selectByKeyword" resultMap="BaseResultMap">
+    SELECT * FROM t_sales t
+    WHERE
+    t.odd LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
+    OR t.party LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
+    OR t.consignee LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
+    ORDER BY
+    t.time DESC,t.odd DESC
+    LIMIT #{index, jdbcType=INTEGER},#{size, jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectCountByKeyword" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM t_sales t
+    WHERE
+    t.odd LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
+    OR t.party LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
+    OR t.consignee LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
+  </select>
+
+  <select id="selectByTime" resultMap="BaseResultMap">
+    SELECT * FROM t_sales
+    WHERE
+    time <![CDATA[>=]]> #{startTime} AND time <![CDATA[<=]]> #{endTime}
+  </select>
+
+  <select id="getTotalPrice" resultType="java.lang.Double">
+    select COALESCE(SUM(p.price * p.number),0) as price from t_sales_product p
+    left join t_sales s
+    on p.id = s.id
+    <where>
+      <if test="startTime != null">
+        and s.time <![CDATA[>=]]> #{startTime}
+      </if>
+      <if test="endTime != null">
+        and s.time <![CDATA[<=]]> #{endTime}
+      </if>
+      <if test="party != null">
+        and s.party = #{party}
+      </if>
+      <if test="consignee != null">
+        and s.consignee = #{consignee}
+      </if>
+    </where>
+  </select>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sale.dao.TconsigneeMapper">
+  <resultMap id="BaseResultMap" type="com.example.sale.model.Tconsignee">
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.example.sale.model.Tconsignee">
+    insert into t_consignee (consignee)
+    values (#{consignee,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.example.sale.model.Tconsignee">
+    insert into t_consignee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="consignee != null">
+        consignee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from t_consignee
+  </select>
+</mapper>

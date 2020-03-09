@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sale.dao.TproductMapper">
+  <resultMap id="BaseResultMap" type="com.example.sale.model.Tproduct">
+    <result column="party" jdbcType="VARCHAR" property="party" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.example.sale.model.Tproduct">
+    insert into t_product (party, product)
+    values (#{party,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.example.sale.model.Tproduct">
+    insert into t_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="party != null">
+        party,
+      </if>
+      <if test="product != null">
+        product,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="party != null">
+        #{party,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        #{product,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from t_product
+  </select>
+</mapper>
