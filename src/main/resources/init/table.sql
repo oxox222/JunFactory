@@ -42,8 +42,8 @@ CREATE TABLE `t_party` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_product`;
 CREATE TABLE `t_product` (
-                             `party` varchar(255) DEFAULT NULL COMMENT '甲方',
-                             `product` varchar(255) DEFAULT NULL COMMENT '产品'
+    `party` varchar(255) DEFAULT NULL COMMENT '甲方',
+    `product` varchar(255) DEFAULT NULL COMMENT '产品'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='甲方需求表';
 
 -- ----------------------------
@@ -51,15 +51,15 @@ CREATE TABLE `t_product` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sales`;
 CREATE TABLE `t_sales` (
-                           `id` varchar(255) DEFAULT NULL COMMENT 'uuid',
-                           `party` varchar(255) DEFAULT NULL COMMENT '甲方',
-                           `consignee` varchar(255) DEFAULT NULL COMMENT '收货人',
-                           `contact` varchar(255) DEFAULT NULL COMMENT '联系人',
-                           `phone` varchar(255) DEFAULT NULL COMMENT '手机',
-                           `address` varchar(255) DEFAULT NULL COMMENT '地址',
-                           `time` timestamp NULL DEFAULT NULL COMMENT '开单时间',
-                           `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
-                           `odd` varchar(255) DEFAULT NULL COMMENT '单号'
+    `id` varchar(255) DEFAULT NULL COMMENT 'uuid',
+    `party` varchar(255) DEFAULT NULL COMMENT '甲方',
+    `consignee` varchar(255) DEFAULT NULL COMMENT '收货人',
+    `contact` varchar(255) DEFAULT NULL COMMENT '联系人',
+    `phone` varchar(255) DEFAULT NULL COMMENT '手机',
+    `address` varchar(255) DEFAULT NULL COMMENT '地址',
+    `time` timestamp NULL DEFAULT NULL COMMENT '开单时间',
+    `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+    `odd` varchar(255) DEFAULT NULL COMMENT '单号'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
 
 -- ----------------------------
@@ -67,11 +67,11 @@ CREATE TABLE `t_sales` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sales_product`;
 CREATE TABLE `t_sales_product` (
-                                   `id` varchar(255) DEFAULT NULL COMMENT '单号',
-                                   `product` varchar(25) DEFAULT NULL COMMENT '产品',
-                                   `size` varchar(255) DEFAULT NULL COMMENT '规格',
-                                   `number` int(255) DEFAULT NULL COMMENT '数量',
-                                   `price` double(255,2) DEFAULT NULL COMMENT '单价'
+    `id` varchar(255) DEFAULT NULL COMMENT '单号',
+    `product` varchar(25) DEFAULT NULL COMMENT '产品',
+    `size` varchar(255) DEFAULT NULL COMMENT '规格',
+    `number` int(255) DEFAULT NULL COMMENT '数量',
+    `price` double(255,2) DEFAULT NULL COMMENT '单价'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单细节表';
 
 SET FOREIGN_KEY_CHECKS = 1;
