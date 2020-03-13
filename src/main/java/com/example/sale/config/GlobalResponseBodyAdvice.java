@@ -1,5 +1,6 @@
 package com.example.sale.config;
 
+import com.alibaba.fastjson.JSON;
 import com.example.sale.model.Result;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -24,12 +25,16 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice {
     }
 
     @Override
-    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest request, ServerHttpResponse response) {
         if (o instanceof Result) {
             return o;
         }
         Result<Object> result = new Result<>();
         result.setResult(o);
+        if (o instanceof String) {
+            response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+            return JSON.toJSONString(result);
+        }
         return result;
     }
 }

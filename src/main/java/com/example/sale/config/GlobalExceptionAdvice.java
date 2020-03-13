@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.security.auth.login.LoginException;
+
 /**
  * @ClassName: GlobalExceptionAdvice
  * @Description: 全局异常处理
@@ -22,9 +24,14 @@ public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = Throwable.class)
     public Result<?> globalException(Throwable e) throws Exception{
-        Result<?> result = new Result<>();
+        Result<String> result = new Result<>();
         result.setStatus(false);
-        result.setStatusCode("500");
+        if (e instanceof LoginException) {
+            result.setStatusCode("401");
+        } else {
+            logger.error(e.getMessage());
+            result.setStatusCode("500");
+        }
         result.setStatusMessage(e.getMessage());
         return result;
     }

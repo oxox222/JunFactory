@@ -27,10 +27,10 @@
         </commentGenerator>
 
         <!-- 数据库连接 -->
-        <jdbcConnection driverClass="${jdbc.driverClass}"
-                        connectionURL="${jdbc.url}"
-                        userId="${jdbc.user}"
-                        password="${jdbc.password}">
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
         </jdbcConnection>
 
         <!-- 生成java实体类 -->
@@ -64,7 +64,7 @@
 <!--        </table>-->
 
         <!--指定某些表参与逆向工程-->
-        <table tableName="t_sales_product" domainObjectName="TsalesProduct"
+        <table tableName="t_user" domainObjectName="TUser"
         enableCountByExample="false"
         enableUpdateByExample="false"
         enableDeleteByExample="false"
