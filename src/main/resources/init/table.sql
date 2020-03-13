@@ -74,4 +74,15 @@ CREATE TABLE `t_sales_product` (
     `price` double(255,2) DEFAULT NULL COMMENT '单价'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单细节表';
 
+-- ----------------------------
+-- Table structure for t_user
+-- ----------------------------
+CREATE TABLE `t_user` (
+    `user` varchar(255) NOT NULL COMMENT '用户名',
+    `password` varchar(255) DEFAULT NULL COMMENT '密码',
+    `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+    `last_login_time` timestamp NULL DEFAULT NULL COMMENT '最后登录时间',
+    PRIMARY KEY (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 SET FOREIGN_KEY_CHECKS = 1;
