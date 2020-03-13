@@ -67,7 +67,7 @@ CREATE TABLE `t_sales` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sales_product`;
 CREATE TABLE `t_sales_product` (
-    `id` varchar(255) DEFAULT NULL COMMENT '单号',
+    `id` varchar(255) DEFAULT NULL COMMENT 'uuid',
     `product` varchar(25) DEFAULT NULL COMMENT '产品',
     `size` varchar(255) DEFAULT NULL COMMENT '规格',
     `number` int(255) DEFAULT NULL COMMENT '数量',

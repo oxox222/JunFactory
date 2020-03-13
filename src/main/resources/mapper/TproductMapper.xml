@@ -34,4 +34,16 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select * from t_product
   </select>
+
+  <select id="selectByKey" resultMap="BaseResultMap">
+    SELECT p.party,p.product FROM t_product p
+    WHERE p.party LIKE CONCAT('%',#{party},'%') AND p.product LIKE CONCAT('%',#{product},'%')
+    ORDER BY p.party ASC
+    LIMIT 100
+  </select>
+
+  <select id="selectCountByKey" resultType="java.lang.Integer">
+    SELECT COALESCE(COUNT(p.party), 0) FROM t_product p
+    WHERE p.party LIKE CONCAT('%',#{party},'%') AND p.product LIKE CONCAT('%',#{product},'%')
+  </select>
 </mapper>

@@ -57,4 +57,16 @@
   <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT * FROM t_sales_product WHERE id = #{id, jdbcType=VARCHAR}
   </select>
+
+  <select id="selectByProductAndId" resultMap="BaseResultMap">
+    SELECT * FROM t_sales_product
+    <where>
+      <if test="id != null">
+        AND id = #{id}
+      </if>
+      <if test="product != null">
+        AND product LIKE CONCAT('%',#{product},'%')
+      </if>
+    </where>
+  </select>
 </mapper>

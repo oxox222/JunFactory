@@ -1,7 +1,6 @@
 package com.example.sale.controller;
 
-import com.example.sale.model.PageResult;
-import com.example.sale.model.Tsales;
+import com.example.sale.model.*;
 import com.example.sale.service.OrderService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,5 +51,30 @@ public class OrderController {
                                 @RequestParam(value = "party", required = false) String party,
                                 @RequestParam(value = "consignee", required = false) String consignee) {
         return orderService.getTotalPrice(startTime, endTime, party, consignee);
+    }
+
+    @RequestMapping("/selectParty")
+    public PageResult<Tparty> selectParty(@RequestParam("key") String key) {
+        return orderService.selectParty(key);
+    }
+
+    @RequestMapping("/selectConsignee")
+    public PageResult<Tconsignee> selectConsignee(@RequestParam("key") String key) {
+        return orderService.selectConsignee(key);
+    }
+
+    @RequestMapping("/selectProduct")
+    public PageResult<Tproduct> selectProduct(@RequestParam("party") String party,
+                                              @RequestParam("product") String product) {
+        return orderService.selectProduct(party, product);
+    }
+
+    @RequestMapping("/selectSales")
+    public List<Tsales> selectSales(@RequestParam(value = "startTime",required = false) String startTime,
+                                    @RequestParam(value = "endTime", required = false) String endTime,
+                                    @RequestParam(value = "party", required = false) String party,
+                                    @RequestParam(value = "consignee", required = false) String consignee,
+                                    @RequestParam(value = "product", required = false) String product) {
+        return orderService.selectSales(startTime, endTime, party, consignee, product);
     }
 }

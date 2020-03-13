@@ -27,4 +27,16 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select * from t_consignee
   </select>
+
+  <select id="selectByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT consignee FROM t_consignee
+    WHERE consignee LIKE CONCAT('%',#{key},'%')
+    ORDER BY consignee ASC
+    LIMIT 100
+  </select>
+
+  <select id="selectCountByKey" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT COALESCE(COUNT(consignee), 0) FROM t_consignee WHERE consignee LIKE CONCAT('%',#{key},'%')
+  </select>
+
 </mapper>

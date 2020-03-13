@@ -24,6 +24,7 @@ public class Tsales implements Serializable {
 
     private List<TsalesProduct> products;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String odd;

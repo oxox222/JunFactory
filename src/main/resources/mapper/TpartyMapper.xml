@@ -27,4 +27,15 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select * from t_party
   </select>
+
+  <select id="selectByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT party FROM t_party
+    WHERE party LIKE CONCAT('%',#{key},'%')
+    ORDER BY party ASC
+    LIMIT 100
+  </select>
+
+  <select id="selectCountByKey" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT COALESCE(COUNT(party), 0) FROM t_party WHERE party LIKE CONCAT('%',#{key},'%')
+  </select>
 </mapper>

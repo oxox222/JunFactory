@@ -132,4 +132,27 @@
     </where>
   </select>
 
+  <select id="selectByKey" resultMap="BaseResultMap">
+    SELECT distinct(s.id),s.*  FROM
+    t_sales s LEFT JOIN t_sales_product p
+    ON p.id = s.id
+    <where>
+      <if test="startTime != null">
+        and s.time <![CDATA[>=]]> #{startTime}
+      </if>
+      <if test="endTime != null">
+        and s.time <![CDATA[<=]]> #{endTime}
+      </if>
+      <if test="party != null">
+        and s.party LIKE CONCAT('%',#{party},'%')
+      </if>
+      <if test="consignee != null">
+        and s.consignee LIKE CONCAT('%',#{consignee},'%')
+      </if>
+      <if test="product != null">
+        and p.product LIKE CONCAT('%',#{product},'%')
+      </if>
+    </where>
+  </select>
+
 </mapper>

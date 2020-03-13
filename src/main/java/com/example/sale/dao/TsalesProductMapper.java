@@ -11,4 +11,6 @@ public interface TsalesProductMapper {
     int insertSelective(TsalesProduct record);
 
     List<TsalesProduct> selectById(@Param("id") String id);
+
+    List<TsalesProduct> selectByProductAndId(@Param("id") String id, @Param("product") String product);
 }

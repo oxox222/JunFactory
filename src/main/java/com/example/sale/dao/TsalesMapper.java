@@ -23,4 +23,10 @@ public interface TsalesMapper {
 
     double getTotalPrice(@Param("startTime") String startTime, @Param("endTime") String endTime,
                          @Param("party") String party, @Param("consignee") String consignee);
+
+    List<Tsales> selectByKey(@Param("startTime") String startTime, @Param("endTime") String endTime,
+                             @Param("party") String party, @Param("consignee") String consignee,
+                             @Param("product") String product);
+
+
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @ClassName: PageResult
- * @Description: TODO
+ * @Description: 查询返回结果集
  * @Author: PANLVZ
  * @Date: 2020-03-05
  */

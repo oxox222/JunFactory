@@ -39,6 +39,10 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private TsalesProductMapper tsalesProductMapper;
 
+    /**
+     * 新增订单
+     * @param tsales
+     */
     @Override
     public void addOrder(Tsales tsales) {
         tsales.setId(UUidUtil.getUuid());
@@ -55,6 +59,13 @@ public class OrderServiceImpl implements OrderService {
         return tsalesMapper.selectAll();
     }
 
+    /**
+     * 根据关键词查询订单  分页
+     * @param keyword
+     * @param index
+     * @param size
+     * @return
+     */
     @Override
     public List<Tsales> selectByKeyword(String keyword, int index, int size) {
         List<Tsales> list = tsalesMapper.selectByKeyword(keyword, index, size);
@@ -66,15 +77,98 @@ public class OrderServiceImpl implements OrderService {
         return list;
     }
 
+    /**
+     * 根据关键词查询订单总数 用于分页
+     * @param keyword
+     * @return
+     */
     @Override
     public Integer selectCountByKeyword(String keyword) {
         return tsalesMapper.selectCountByKeyword(keyword);
     }
 
+    /**
+     * 获取总销售额
+     * @param startTime
+     * @param endTime
+     * @param party
+     * @param consignee
+     * @return
+     */
     @Override
     public double getTotalPrice(String startTime, String endTime,
                                 String party, String consignee) {
         return tsalesMapper.getTotalPrice(startTime, endTime, party, consignee);
+    }
+
+    /**
+     * 获取甲方
+     * @param key
+     * @return
+     */
+    @Override
+    public PageResult<Tparty> selectParty(String key) {
+        PageResult result = new PageResult();
+        List<Tparty> list = tpartyMapper.selectByKey(key);
+        if (list != null) {
+            result.setList(list);
+            result.setCount(tpartyMapper.selectCountByKey(key));
+        }
+        return result;
+    }
+
+    /**
+     * 获取收货方
+     * @param key
+     * @return
+     */
+    @Override
+    public PageResult<Tconsignee> selectConsignee(String key) {
+        PageResult result = new PageResult();
+        List<Tconsignee> list = tconsigneeMapper.selectByKey(key);
+        if (list != null) {
+            result.setList(list);
+            result.setCount(tconsigneeMapper.selectCountByKey(key));
+        }
+        return result;
+    }
+
+    /**
+     * 获取产品甲方-产品信息
+     * @param party
+     * @param product
+     * @return
+     */
+    @Override
+    public PageResult<Tproduct> selectProduct(String party, String product) {
+        PageResult result = new PageResult();
+        List<Tproduct> list = tproductMapper.selectByKey(party, product);
+        if (list != null) {
+            result.setList(list);
+            result.setCount(tproductMapper.selectCountByKey(party, product));
+        }
+        return result;
+    }
+
+    /**
+     * 查询订单信息
+     * @param startTime
+     * @param endTime
+     * @param party
+     * @param consignee
+     * @param product
+     * @return
+     */
+    @Override
+    public List<Tsales> selectSales(String startTime, String endTime,
+                                    String party, String consignee, String product) {
+        List<Tsales> list = tsalesMapper.selectByKey(startTime, endTime, party, consignee, product);
+        for(int i = 0 ; i < list.size(); i++) {
+            List<TsalesProduct> products = new ArrayList<>();
+            products = tsalesProductMapper.selectByProductAndId(list.get(i).getId(), product);
+            list.get(i).setProducts(products);
+        }
+        return list;
     }
 
     //新增甲方
