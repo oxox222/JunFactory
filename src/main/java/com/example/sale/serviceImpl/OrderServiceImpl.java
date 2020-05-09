@@ -3,7 +3,7 @@ package com.example.sale.serviceImpl;
 import com.example.sale.dao.*;
 import com.example.sale.model.*;
 import com.example.sale.service.OrderService;
-import com.example.sale.util.UUidUtil;
+import com.example.sale.util.UuidUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public void addOrder(Tsales tsales) {
-        tsales.setId(UUidUtil.getUuid());
+        tsales.setId(UuidUtil.getUuid());
         tsales.setCreateTime(new Date());
         addParty(tsales.getParty());
         addConsignee(tsales.getConsignee());

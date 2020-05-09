@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -28,13 +29,13 @@ public class LoginController {
     private LoginService loginService;
 
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
-    public String Login(@RequestBody TUser tUser, HttpSession session) {
+    public String Login(@RequestBody TUser tUser, HttpSession session) throws LoginException {
         TUser localUser = loginService.getLogin(tUser);
         if (localUser == null) {
-            return "该用户不存在";
+            throw new LoginException("该用户不存在");
         }
         if (!localUser.getPassword().equals(tUser.getPassword())) {
-            return "密码错误";
+            throw new LoginException("密码错误");
         }
         session.setAttribute("user", tUser);
         return "登录成功";

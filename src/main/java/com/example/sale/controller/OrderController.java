@@ -24,7 +24,6 @@ public class OrderController {
 
     private static Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-
     @Resource
     private OrderService orderService;
 
@@ -132,4 +131,5 @@ public class OrderController {
                                     @RequestParam(value = "product", required = false) String product) {
         return orderService.selectSales(startTime, endTime, party, consignee, product);
     }
+
 }
