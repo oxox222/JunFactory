@@ -1,4 +1,4 @@
-package com.example.sale.dao;
+package com.example.sale.dao.sale;
 
 import com.example.sale.model.Tsales;
 import org.apache.ibatis.annotations.Mapper;

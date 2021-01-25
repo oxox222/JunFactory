@@ -1,20 +1,62 @@
 package com.example.sale.model;
 
+
+import com.example.sale.emun.ResultEnum;
+
 /**
  * @ClassName: Result
- * @Description: TODO
+ * @Description: 封装返回结果
  * @Author: PANLVZ
  * @Date: 2020-03-06
  */
 public class Result<T> {
 
-    private boolean status = true;
+    /**
+     * 状态 true成果  false失败
+     */
+    private boolean status;
 
-    private String statusCode = "200";
+    /**
+     * 状态码
+     */
+    private String statusCode;
 
+    /**
+     * 返回信息
+     */
     private String statusMessage;
 
+    /**
+     * 结果集
+     */
     private T result;
+
+    public static <T> Result success(T date) {
+        return new Result(true, ResultEnum.OPERATION_SUCCESS.getStatusCode(),
+                ResultEnum.OPERATION_SUCCESS.getMessage(), date);
+    }
+
+    public static <T> Result success(ResultEnum resultEnum, T date) {
+        return new Result(true, resultEnum.getStatusCode(), resultEnum.getMessage(), date);
+    }
+
+    public static Result error(String statusCode, String message) {
+        return new Result(false, statusCode, message, null);
+    }
+
+    public static Result error(ResultEnum resultEnum) {
+        return error(resultEnum.getStatusCode(), resultEnum.getMessage());
+    }
+
+    public Result() {
+    }
+
+    public Result(boolean status, String statusCode, String statusMessage, T result) {
+        this.status = status;
+        this.statusCode = statusCode;
+        this.statusMessage = statusMessage;
+        this.result = result;
+    }
 
     public boolean isStatus() {
         return status;

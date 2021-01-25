@@ -1,4 +1,4 @@
-package com.example.sale.dao;
+package com.example.sale.dao.sale;
 
 import com.example.sale.model.Tproduct;
 import org.apache.ibatis.annotations.Param;

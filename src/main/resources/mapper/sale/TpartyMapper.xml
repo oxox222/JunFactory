@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.sale.dao.TpartyMapper">
+<mapper namespace="com.example.sale.dao.sale.TpartyMapper">
   <resultMap id="BaseResultMap" type="com.example.sale.model.Tparty">
     <result column="party" jdbcType="VARCHAR" property="party" />
   </resultMap>

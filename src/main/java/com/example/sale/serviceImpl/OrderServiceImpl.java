@@ -1,6 +1,6 @@
 package com.example.sale.serviceImpl;
 
-import com.example.sale.dao.*;
+import com.example.sale.dao.sale.*;
 import com.example.sale.model.*;
 import com.example.sale.service.OrderService;
 import com.example.sale.util.UuidUtil;

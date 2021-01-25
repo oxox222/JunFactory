@@ -1,6 +1,6 @@
 package com.example.sale.serviceImpl;
 
-import com.example.sale.dao.TUserMapper;
+import com.example.sale.dao.sale.TUserMapper;
 import com.example.sale.model.TUser;
 import com.example.sale.service.LoginService;
 import org.slf4j.Logger;

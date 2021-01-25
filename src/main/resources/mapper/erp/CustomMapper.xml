@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sale.dao.erp.CustomMapper">
+  <resultMap id="BaseResultMap" type="com.example.sale.model.Custom">
+    <result column="t_id" jdbcType="INTEGER" property="id" />
+    <result column="t_name" jdbcType="VARCHAR" property="name" />
+    <result column="t_leader" jdbcType="VARCHAR" property="leader" />
+    <result column="t_leader_phone" jdbcType="VARCHAR" property="leaderPhone" />
+    <result column="t_phone" jdbcType="VARCHAR" property="phone" />
+    <result column="t_mail" jdbcType="VARCHAR" property="mail" />
+    <result column="t_fax" jdbcType="VARCHAR" property="fax" />
+    <result column="t_addr" jdbcType="VARCHAR" property="address" />
+    <result column="t_addr_detail" jdbcType="VARCHAR" property="addressDetail" />
+    <result column="t_bank" jdbcType="VARCHAR" property="bank" />
+    <result column="t_bank_account_name" jdbcType="VARCHAR" property="bankAccountName" />
+    <result column="t_bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="t_sort" jdbcType="TINYINT" property="sort" />
+    <result column="t_remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <sql id="Base_Column">
+    t_id, t_name, t_leader, t_leader_phone, t_phone, t_mail, t_fax,
+    t_addr, t_addr_detail, t_bank, t_bank_account_name, t_bank_account,
+    t_sort, t_remark
+  </sql>
+
+  <select id="queryList" resultMap="BaseResultMap">
+    SELECT
+        <include refid="Base_Column"/>
+    FROM
+        t_custom
+    WHERE 1=1
+    <if test="query.name != null and query.name != ''">
+        AND t_name LIKE concat('%', #{query.name}, '%')
+    </if>
+    ORDER BY t_sort DESC
+  </select>
+
+
+</mapper>
