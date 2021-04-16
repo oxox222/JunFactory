@@ -115,6 +115,20 @@
                 <version>2.3.5.RELEASE</version>
             </plugin>
 
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- mybatis逆向生成工具 -->
             <!--<plugin>
                 <groupId>org.mybatis.generator</groupId>
