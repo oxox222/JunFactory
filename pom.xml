@@ -18,7 +18,7 @@
         <java.version>1.8</java.version>
         <!--  设置代码编码格式为utf-8  -->
         <project.bulid.sourceEncoding>UTF-8</project.bulid.sourceEncoding>
-        <maven.test.skip>true</maven.test.skip>
+        <maven.test.skip>false</maven.test.skip>
     </properties>
 
     <dependencies>
